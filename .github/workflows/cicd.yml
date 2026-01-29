@@ -1,4 +1,4 @@
-name: Maven Docker Deploy to EC2
+name: Maven Docker Deploy to EC2.
 
 on:
   push:
