@@ -16,7 +16,7 @@ jobs:
     - name: Deploy on EC2 using SSH
       uses: appleboy/ssh-action@v1.0.3
       with:
-        host: ${{ secrts.EC2_HOST }}
+        host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_KEY }}
      
@@ -24,7 +24,7 @@ jobs:
           echo "Connected to EC2"
 
           docker stop maven-app || true
-          docker rm maven-app || true
+          docker rm maven-ap || true
 
           rm -rf maven-app
           mkdir maven-app
