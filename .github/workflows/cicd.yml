@@ -31,7 +31,8 @@ jobs:
           cd maven-app
 
           git clone https://github.com/${{ github.repository }} .
-          
+
+          docker rmi -f maven-app-image
           docker build -t maven-app-image .
           
           docker run -d \
