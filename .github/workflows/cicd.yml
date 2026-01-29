@@ -24,7 +24,7 @@ jobs:
           echo "Connected to EC2"
 
           docker stop maven-app || true
-          docker rm maven-ap || true
+          docker rm maven-app || true
 
           rm -rf maven-app
           mkdir maven-app
