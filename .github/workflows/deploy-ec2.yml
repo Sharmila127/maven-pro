@@ -1,0 +1,41 @@
+name: Maven Docker Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Deploy on EC2 using SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          echo "Connected to EC2"
+
+          docker stop maven-app || true
+          docker rm maven-app || true
+
+          rm -rf maven-app
+          mkdir maven-app
+          cd maven-app
+
+          git clone https://github.com/${{ github.repository }} .
+          
+          docker build -t maven-app-image .
+          
+          docker run -d \
+            --name maven-app \
+            -p 8000:8080 \
+            maven-app-image
+
+          docker ps
